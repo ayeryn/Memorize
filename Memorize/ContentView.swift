@@ -21,11 +21,11 @@ struct ContentView: View {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 75))]){
                     ForEach(emojis, id: \.self){ emoji in
                         CardView(emoji: emoji)
+                            .aspectRatio(2/3, contentMode: .fit)
                     }
-                    .aspectRatio(2/3, contentMode: .fit)
                 }
             }
-            .padding(.horizontal)
+            .foregroundColor(.pink)
             Spacer()
             HStack{
                 Button {
@@ -56,24 +56,24 @@ struct ContentView: View {
                     }
                 }.buttonStyle(.bordered)
             }
+            .padding(.horizontal)
         }
     }
 }
 
 
 struct CardView : View{
-    var card = RoundedRectangle(cornerRadius: 20)
     var emoji: String
     @State var isFaceUp = true
-    let color: Color = .pink
     var body: some View {
         ZStack {
+            let card = RoundedRectangle(cornerRadius: 20)
             if isFaceUp {
-                card.fill(.white)
-                card.strokeBorder(color, lineWidth: 3)
+                card.fill().foregroundColor(.white)
+                card.strokeBorder(lineWidth: 3)
                 Text(emoji).font(.largeTitle)
             } else {
-                card.fill(color)
+                card.fill()
             }
         }
         .onTapGesture {
