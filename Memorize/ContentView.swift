@@ -28,36 +28,49 @@ struct ContentView: View {
             .foregroundColor(.pink)
             Spacer()
             HStack{
-                Button {
-                    emojis = carEmojis.shuffled()
-                } label: {
-                    VStack{
-                        Image(systemName: "car")
-                        Text("Vehicles")
-                            .font(.caption)
-                    }
-                }.buttonStyle(.bordered)
-                Button {
-                    emojis = sportEmojis.shuffled()
-                } label: {
-                    VStack{
-                        Image(systemName: "figure.run")
-                        Text("Sports")
-                            .font(.caption)
-                    }
-                }.buttonStyle(.bordered)
-                Button{
-                    emojis = weatherEmojis.shuffled()
-                } label: {
-                    VStack{
-                        Image(systemName: "sun.max")
-                        Text("Weathers")
-                            .font(.caption)
-                    }
-                }.buttonStyle(.bordered)
+                vehiclesButton
+                sportsButton
+                weathersButton
             }
             .padding(.horizontal)
         }
+        .padding(.horizontal)
+    }
+    
+    var vehiclesButton: some View {
+        Button {
+            emojis = carEmojis.shuffled()
+        } label: {
+            VStack{
+                Image(systemName: "car")
+                Text("Vehicles")
+                    .font(.caption)
+            }
+        }.buttonStyle(.bordered)
+    }
+    
+    var sportsButton: some View {
+        Button {
+            emojis = sportEmojis.shuffled()
+        } label: {
+            VStack{
+                Image(systemName: "figure.run")
+                Text("Sports")
+                    .font(.caption)
+            }
+        }.buttonStyle(.bordered)
+    }
+    
+    var weathersButton: some View {
+        Button{
+            emojis = weatherEmojis.shuffled()
+        } label: {
+            VStack{
+                Image(systemName: "sun.max")
+                Text("Weathers")
+                    .font(.caption)
+            }
+        }.buttonStyle(.bordered)
     }
 }
 
