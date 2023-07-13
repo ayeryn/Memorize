@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-
-class EmojiMemoryGame {
+// Publishes changes
+class EmojiMemoryGame: ObservableObject {
     
     // type var - global for the type
     static let emojis = ["✈️", "🚗", "🚄", "🚀", "🚛", "🚁", "🚌", "🛴", "🛵", "🛸", "🚲", "🚎", "🚕", "🏎️", "🚜", "🏍️","🚙"]
@@ -20,11 +20,20 @@ class EmojiMemoryGame {
             emojis[pairIndex]
         }
     }
-
-    // Gatekeeping
-    private var model: MemoryGame<String> = createMemoryGame()
+    
+    // private - gatekeeping
+    // @Published - publishes a change anytime this var changes
+    @Published private var model: MemoryGame<String> = createMemoryGame()
     
     var cards: Array<MemoryGame<String>.Card> {
         model.cards
+    }
+    
+    // MARK: - Intent(s)
+    
+    func choose(_ card: MemoryGame<String>.Card){
+        // Another way to do @Published
+        // objectWillChange.send()
+        model.choose(card)
     }
 }

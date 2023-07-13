@@ -12,15 +12,19 @@ struct ContentView: View {
     
     // ViewModel
     // In reality probably called "game"
-    var viewModel: EmojiMemoryGame
+    // If something changes, rebuild the view
+    @ObservedObject var viewModel: EmojiMemoryGame
     
     var body: some View {
         ScrollView {
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 70))]){
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]){
                 /* CARDS */
                 ForEach(viewModel.cards) { card in
                     CardView(card: card)
                         .aspectRatio(2/3, contentMode: .fit)
+                        .onTapGesture {
+                            viewModel.choose(card)
+                        }
                 }
             }
         }
@@ -38,7 +42,7 @@ struct CardView: View {
             let shape = RoundedRectangle(cornerRadius: 20)
             if card.isFaceUp {
                 shape.fill().foregroundColor(.white)
-                shape.strokeBorder(lineWidth: 5)
+                shape.strokeBorder(lineWidth: 3)
                 Text(card.content).font(.largeTitle)
             }
             else {
