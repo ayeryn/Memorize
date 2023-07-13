@@ -4,6 +4,7 @@
 //
 //  Created by Eryn Li on 7/9/23.
 //
+// This is the View
 
 import SwiftUI
 
@@ -23,35 +24,8 @@ struct ContentView: View {
             }
             .foregroundColor(.pink)
             Spacer()
-            HStack {
-                /* BUTTONS */
-                remove
-                Spacer()
-                // Grabs as much space it can
-                add
-            }
-            .font(.largeTitle)
-            .padding(.horizontal)
         }
         .padding(.horizontal)
-    }
-    var add: some View {
-        Button {
-            if emojiCount < emojis.count {
-                emojiCount += 1
-            }
-        } label: {
-            Image(systemName: "plus.circle")
-        }
-    }
-    var remove: some View {
-        Button {
-            if emojiCount > 1 {
-                emojiCount -= 1
-            }
-        } label: {
-            Image(systemName: "minus.circle")
-        }
     }
 }
 
