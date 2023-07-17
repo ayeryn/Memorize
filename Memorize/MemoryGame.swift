@@ -15,23 +15,12 @@ struct MemoryGame<CardContent> {
     // label same as element, not necessary
     // mutating - will change self
     mutating func choose(_ card: Card) {
-        let chosenIndex = Index(of: card)
-        cards[chosenIndex].isFaceUp.toggle()
-//        print("chosenCard = \(chosenCard)")
+        if let chosenIndex = cards.firstIndex(where: {$0.id == card.id}){
+            cards[chosenIndex].isFaceUp.toggle()
+        }
         print("\(cards)")
     }
-    
-    // Sensible label and name!!
-    func Index(of card: Card) -> Int {
-        for index in 0..<cards.count {
-            if cards[index].id == card.id {
-                return index
-            }
-        }
-        
-        return 0
-    }
-    
+
     // Passing a func to a func!!!
     // Functional language hehe
     init(numberOfPairsOfCards: Int, createCardContent: (Int) -> CardContent){
