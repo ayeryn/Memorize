@@ -8,14 +8,32 @@
 
 import Foundation
 
-struct MemoryGame<CardContent> {
+// Equitable to use ==
+struct MemoryGame<CardContent> where CardContent: Equatable{
     // (set) - read-only
     private(set) var cards: Array<Card>
+    
+    private var indexOfTheOneAndOnlyFaceUpCard: Int?
     
     // label same as element, not necessary
     // mutating - will change self
     mutating func choose(_ card: Card) {
-        if let chosenIndex = cards.firstIndex(where: {$0.id == card.id}){
+        if let chosenIndex = cards.firstIndex(where: {$0.id == card.id}),
+           !cards[chosenIndex].isFaceUp,
+           !cards[chosenIndex].isMatched
+        {
+            if let potentialMatchIndex = indexOfTheOneAndOnlyFaceUpCard {
+                if cards[chosenIndex].content == cards[potentialMatchIndex].content {
+                    cards[potentialMatchIndex].isMatched = true
+                    cards[chosenIndex].isMatched = true
+                }
+                indexOfTheOneAndOnlyFaceUpCard = nil
+            } else {
+                for index in 0..<cards.count {
+                    cards[index].isFaceUp = false
+                }
+                indexOfTheOneAndOnlyFaceUpCard = chosenIndex
+            }
             cards[chosenIndex].isFaceUp.toggle()
         }
         print("\(cards)")
